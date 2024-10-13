@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    li {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease;
+    }
+
+    li:nth-child(odd) {
+      background-color: #f9f9f9;
+    }
+
+    li:hover {
+      background-color: #e6f7ff;
+    }
+
+    li span {
+      font-weight: bold;
+      color: #555;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .actions a, .actions button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .actions button {
+      background-color: #dc3545;
+    }
+
+    .actions a:hover {
+      background-color: #218838;
+    }
+
+    .actions button:hover {
+      background-color: #c82333;
+    }
+
+    /* Centering the Create New Data button below the list */
+    .center-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .center-button a {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .center-button a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  <script>
+    function confirmDelete(event) {
+      if (!confirm("Are you sure you want to delete this item?")) {
+        event.preventDefault(); // Prevent form submission if user clicks "Cancel"
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Data List</h1>
+  <ul>
+    <% data.forEach(item => { %>
+    <li>
+      <span><%= item.name %>: <%= item.value %></span>
+      <div class="actions">
+        <a href="/edit/<%= item.id %>">Edit</a>
+        <form action="/delete/<%= item.id %>" method="post" style="display: inline" onsubmit="confirmDelete(event)">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    </li>
+    <% }) %>
+  </ul>
+  
+  <!-- Center the Create New Data button below the list -->
+  <div class="center-button">
+    <a href="/create">Create New Data</a>
+  </div>
+
+</body>
+</html>
